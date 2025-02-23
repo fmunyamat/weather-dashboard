@@ -1,13 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { WeatherDataProvider } from './contexts/weather-data.context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import './index.scss';
+
+const container = document.getElementById('root');
+const root = createRoot(container);
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <WeatherDataProvider>
+        <App />
+      </WeatherDataProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

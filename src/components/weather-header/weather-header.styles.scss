@@ -1,0 +1,39 @@
+.weather-header-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+
+    &:first-child {
+        margin-left: 80px;
+    }
+
+    &:last-child {
+        margin-right: 80px;
+    }
+
+    .switch-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .address-input-container {
+        display: flex;
+
+        input {
+            height: 100%;
+            width: 40vw;
+            border-radius: 20px 0 0px 20px;
+            border: none;
+            background-color: #444444;
+        }
+
+        button {
+            height: 100%;
+            border-radius: 0 20px 20px 0;
+            border: none;
+            background-color: #444444;
+            background-image: url('../../assets/magnifying-glass-svg.svg');
+        }
+    }
+}
