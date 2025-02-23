@@ -2,16 +2,16 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 
 export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 70,
-  height: 40,
+  width: 100,
+  height: 50,
   padding: 7,
   '& .MuiSwitch-switchBase': {
     margin: 1,
     padding: 0,
-    transform: 'translateX(5px)',
+    transform: 'translateX(1px)',
     '&.Mui-checked': {
       color: '#fff',
-      transform: 'translateX(30px)',
+      transform: 'translateX(50px)',
       '& .MuiSwitch-thumb:before': {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
           '#fff',
@@ -28,8 +28,9 @@ export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   '& .MuiSwitch-thumb': {
     backgroundColor: '#001e3c',
-    width: 35,
-    height: 35,
+    width: 43,
+    height: 43,
+    margin: 2,
     '&::before': {
       content: "''",
       position: 'absolute',
@@ -50,7 +51,7 @@ export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-track': {
     opacity: 1,
     backgroundColor: '#aab4be',
-    borderRadius: 20 / 2,
+    borderRadius: 20,
     ...theme.applyStyles('dark', {
       backgroundColor: '#8796A5',
     }),

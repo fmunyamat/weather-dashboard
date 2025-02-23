@@ -1,9 +1,14 @@
-// import './.styles.scss';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import { CLButton } from "./current-location-button.styles";
 
 const CurrentLocationButton = () => {
     return (
         <>
-            <button>Current Location</button>
+            <CLButton>
+                <span><FontAwesomeIcon icon={faCrosshairs} /></span>
+                <span>Current Location</span>
+            </CLButton>
         </>
     );
 };
