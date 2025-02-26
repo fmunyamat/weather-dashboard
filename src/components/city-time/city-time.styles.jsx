@@ -22,15 +22,15 @@ export const City = styled.span
     color: ${(props) => (props.theme === "Light" ? "#3c3c3c" : "white")};
 `;
 
-export const Time = styled.span
+export const CurrentTime = styled.span
 `
         margin-top: 20px;
-        font-size: 70px;
+        font-size: 50px;
         font-weight: 700;
     color: ${(props) => (props.theme === "Light" ? "#3c3c3c" : "white")}
 `;
 
-export const Date = styled.span
+export const CurrentDate = styled.span
 `
     font-size: 20px;
     color: ${(props) => (props.theme === "Light" ? "#3c3c3c" : "white")}

@@ -44,8 +44,6 @@ const CurrentLocationButton = () => {
         }
       }, [coordinates]);
       
-      console.log('Current Location: ', currentLocation);
-      
     return (
         <>
             <CLButton onClick={getCurrentLocation}>
