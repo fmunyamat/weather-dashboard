@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { WeatherDataProvider } from './contexts/weather-data.context';
 import { DashboardThemeProvider } from './contexts/dashboard-theme.context';
+import { LocationProvider } from './contexts/location.context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -13,11 +14,13 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <DashboardThemeProvider>
-        <WeatherDataProvider>
-          <App />
-        </WeatherDataProvider>
-      </DashboardThemeProvider>
+      <LocationProvider>
+        <DashboardThemeProvider>
+          <WeatherDataProvider>
+            <App />
+          </WeatherDataProvider>
+        </DashboardThemeProvider>
+      </LocationProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

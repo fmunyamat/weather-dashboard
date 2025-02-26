@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { DashboardThemeContext } from "../../contexts/dashboard-theme.context";
 import { WeatherDataContext } from "../../contexts/weather-data.context";
+import { LocationContext } from "../../contexts/location.context";
 import { getCoordinates } from "../../utils/apis/geocode-api.utils";
 import AddressAutocomplete from "../address-autocomplete/address-autocomplete.component";
 import { MaterialUISwitch } from "../material-ui-switch/material-ui-switch.component";
@@ -12,8 +13,7 @@ import { WeatherHeaderContainer, SwitchContainer, AddressInputContainer } from "
 const WeatherHeader = () => {
     const { currentWeather, hourlyWeather, dailyWeather, fetchWeatherForecast } = useContext(WeatherDataContext);
     const { theme, setTheme } = useContext(DashboardThemeContext);
-    const [address, setAddress] = useState('');
-    const [coordinates, setCoordinates] = useState({ lat: null, long: null });
+    const { coordinates, setCoordinates, address, setAddress } = useContext(LocationContext);
     const [isLightToggle, setIsLightToggle] = useState(true);
 
     const onChangeHandler = (e) => {
@@ -27,13 +27,13 @@ const WeatherHeader = () => {
         try {
 
             const response = await getCoordinates(address);
-            const lat_coordinates = response.results[0].lat;
-            const long_coordinates = response.results[0].lon;
+            const latCoordinates = response.results[0].lat;
+            const longCoordinates = response.results[0].lon;
 
             setCoordinates((prev) => ({
                 ...prev,
-                lat: lat_coordinates,
-                long: long_coordinates
+                lat: latCoordinates,
+                long: longCoordinates
             }));
 
         } catch (error) {
@@ -43,8 +43,13 @@ const WeatherHeader = () => {
 
     const submitHandler = async () => {
         const checkAddress = address && await fetchCoordinates();
+        setAddress('')
 
         return checkAddress;
+    }
+    
+    const toggleSwitchHandler = () => {
+        setIsLightToggle(!isLightToggle);
     }
 
     useEffect(() => {
@@ -53,10 +58,6 @@ const WeatherHeader = () => {
         }
     }, [coordinates]);
     
-    const toggleSwitchHandler = () => {
-        setIsLightToggle(!isLightToggle);
-    }
-    
     useEffect(() => {
         setTheme(isLightToggle ? 'Light': 'Dark');
     }, [isLightToggle]); 
@@ -64,23 +65,27 @@ const WeatherHeader = () => {
     // console.log(test);
     // console.log(address);
     // console.log(coordinates);
-    console.log(currentWeather);
-    console.log(hourlyWeather);
-    console.log(dailyWeather);
-    console.log(isLightToggle);
-    console.log(theme);
+    // console.log(currentWeather);
+    // console.log(hourlyWeather);
+    // console.log(dailyWeather);
+    // console.log(isLightToggle);
+    // console.log(theme);
     
     
     
     return (
       <>
         <WeatherHeaderContainer>
-            <SwitchContainer onClick={toggleSwitchHandler}>
-                <MaterialUISwitch />
+            <SwitchContainer>
+                <MaterialUISwitch onClick={toggleSwitchHandler} />
                 <label style={{color: isLightToggle ? 'black' : 'white'}}>{theme} Mode</label>
             </SwitchContainer>
             <AddressInputContainer theme={theme}>
-                <AddressAutocomplete onChange={onChangeHandler}/>
+                <AddressAutocomplete
+                    onChange={onChangeHandler}
+                    value={address} 
+                    onInputChange={setAddress}
+                />
                 <button type="submit" onClick={submitHandler}>
                     <span><FontAwesomeIcon icon={faMagnifyingGlass} size='2x' /></span>
                 </button>

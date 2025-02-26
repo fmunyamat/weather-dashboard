@@ -7,10 +7,10 @@ export const WeatherHeaderContainer = styled.div
     padding-top: 50px;
 
     &:first-child {
-        margin-left: 80px;
+        margin-left: 5vw;
     }
 
-    &:last-child {
+    button {
         margin-right: 80px;
     }
 `;
@@ -26,6 +26,7 @@ export const SwitchContainer = styled.div
 export const AddressInputContainer = styled.div
 `
     display: flex;
+    padding-left: 8vw;
 
     input, button {
         background-color: ${(props) => (props.theme === "Light" ? "#d9d9d9" : "#444444")};
@@ -38,6 +39,7 @@ export const AddressInputContainer = styled.div
         border: ${(props) => (props.theme === "Light" ? "1px solid black;" : "none")};
         ${(props) => (props.theme === "Light" ? "border-right: none;" : "")};
         text-indent: 10px;
+        color: ${(props) => (props.theme === "Dark" && "white")};
 
         &::placeholder {
             color: ${(props) => (props.theme === "Light" ? "#878787" : "#b7b7b7")};
