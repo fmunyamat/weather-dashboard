@@ -6,13 +6,12 @@ import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { CLButton } from "./current-location-button.styles";
 
 const CurrentLocationButton = () => {
-    const { coordinates, setCoordinates, setAddress } = useContext(LocationContext);
-    const [currentLocation, setCurrentLocation] = useState({});
-    const [isCLButtonClicked, setIsCLButtonClicked] = useState(false)
+    const { coordinates, setCoordinates, setAddressFull, setDisplayCityText } = useContext(LocationContext);
+    const [isCLButtonClicked, setIsCLButtonClicked] = useState(false);
 
     const getCurrentLocation = () => {
         setIsCLButtonClicked(true);
-        setAddress('');
+        setAddressFull('');
 
         if (navigator.geolocation) {
 
@@ -36,7 +35,11 @@ const CurrentLocationButton = () => {
           const fetchAddressData = async () => {
             
             const response = await getAddress(coordinates.lat, coordinates.long);
-            setCurrentLocation(response);
+
+            if (response.features[0].properties.city) {
+              setDisplayCityText(response.features[0].properties.city);
+            }
+
             setIsCLButtonClicked(false)
           }
 

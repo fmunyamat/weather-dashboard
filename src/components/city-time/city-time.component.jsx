@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { DashboardThemeContext } from '../../contexts/dashboard-theme.context';
+import { LocationContext } from '../../contexts/location.context.jsx';
 import { CityTimeContainer, City, CurrentTime, CurrentDate } from './city-time.styles.jsx';
 import './city-time.styles.jsx';
 
 const CityTime = () => {
     const { theme } = useContext(DashboardThemeContext);
+    const { displayCityText } = useContext(LocationContext);
     const currentDate = new Date();
     const [currentTime, setCurrentTime] = useState('');
 
@@ -50,7 +52,7 @@ const CityTime = () => {
     return (
         <>
             <CityTimeContainer theme={theme}>
-                <City theme={theme}>Athens</City>
+                <City theme={theme}>{displayCityText}</City>
                 <CurrentTime theme={theme}>{currentTime}</CurrentTime>
                 <CurrentDate theme={theme}>{formattedDate}</CurrentDate>
             </CityTimeContainer>

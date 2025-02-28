@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import CityTime from '../city-time/city-time.component';
 import WeatherSummary from '../weather-summary/weather-summary.component';
 import './weather-body.styles.scss';
