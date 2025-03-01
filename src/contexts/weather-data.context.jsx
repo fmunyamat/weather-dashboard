@@ -2,6 +2,8 @@ import { createContext, useState } from "react";
 import { fetchWeatherData } from "../utils/apis/weather-api.utils";
 
 export const WeatherDataContext = createContext({
+    fullWeather: {},
+    setFullWeather: () => null,
     currentWeather: {},
     setCurrentWeather: () => null,
     hourlyWeather: {},
@@ -13,6 +15,7 @@ export const WeatherDataContext = createContext({
 
 
 export const WeatherDataProvider = ({ children }) => {
+    const [fullWeather, setFullWeather] = useState({});
     const [currentWeather, setCurrentWeather] = useState({});
     const [hourlyWeather, setHourlyWeather] = useState({});
     const [dailyWeather, setDailyWeather] = useState({});
@@ -21,6 +24,7 @@ export const WeatherDataProvider = ({ children }) => {
         try {
     
             const weather = await fetchWeatherData(lat, long);
+            setFullWeather(weather);
             setCurrentWeather(weather.current);
             setHourlyWeather(weather.hourly);
             setDailyWeather(weather.daily)
@@ -30,7 +34,7 @@ export const WeatherDataProvider = ({ children }) => {
         }
     };
 
-    const value = { currentWeather, setCurrentWeather, hourlyWeather, setHourlyWeather, dailyWeather, setDailyWeather, fetchWeatherForecast };
+    const value = { fullWeather, setFullWeather, currentWeather, setCurrentWeather, hourlyWeather, setHourlyWeather, dailyWeather, setDailyWeather, fetchWeatherForecast };
 
     return <WeatherDataContext.Provider value={value}>{ children }</WeatherDataContext.Provider>
 };

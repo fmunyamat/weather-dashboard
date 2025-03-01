@@ -1,5 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { DashboardThemeContext } from '../../contexts/dashboard-theme.context';
+import { WeatherDataContext } from '../../contexts/weather-data.context';
+import { convertUTCToLocalTime, formatUnixTimestampToDate } from '../../utils/formatting/time-format.utils';
 import SunnyWeatherIcon from '../animated-weather-icons/sunny/sunny.component';
 import sunrise from '../../assets/weather-icons/sunrise.png';
 import sunset from '../../assets/weather-icons/sunset.png';
@@ -26,14 +28,31 @@ import {
 
 const WeatherSummary = () => {
     const { theme } = useContext(DashboardThemeContext);
+    const { fullWeather, currentWeather } = useContext(WeatherDataContext);
+    const [currentTemp, setCurrentTemp] = useState('--°F');
+    const [feelsLikeTemp, setFeelsLikeTemp] = useState('--°F');
+    const [sunriseTime, setSunriseTime] = useState('0:00 AM');
+    const [sunsetTime, setSunsetTime] = useState('0:00 AM');
+    const getCurrentWeather = (currentWeatherType) =>  currentWeather && Math.ceil(currentWeatherType);
+
+
+    useEffect(() => {
+        // get sunset and sunrise time for searched city
+        if (fullWeather && fullWeather.current) {
+            setCurrentTemp(getCurrentWeather(currentWeather.temp));
+            setFeelsLikeTemp(getCurrentWeather(currentWeather.feels_like));
+            setSunriseTime(convertUTCToLocalTime(currentWeather.sunrise + fullWeather.timezone_offset));
+            setSunsetTime(convertUTCToLocalTime(currentWeather.sunset + fullWeather.timezone_offset));
+        }
+    }, [fullWeather]);
 
     return (
         <>
             <WeatherSummaryContainer theme={theme}>
                 <Summary1>
                     <TempContainer>
-                        <Temp theme={theme}>67°F</Temp>
-                        <FeelsLikeTemp theme={theme}>Feels Like <span>60°F</span></FeelsLikeTemp>
+                        <Temp theme={theme}>{`${currentTemp}°F`}</Temp>
+                        <FeelsLikeTemp theme={theme}>Feels Like <span>{`${feelsLikeTemp}°F`}</span></FeelsLikeTemp>
                     </TempContainer>
                     <SunriseSunsetContainer>
                         <div className="sunrise">
@@ -42,7 +61,7 @@ const WeatherSummary = () => {
                             </Icon>
                             <Info theme={theme}>
                                 <span>Sunrise</span>
-                                <span className='sunrise-time'>06:37 AM</span>
+                                <span className='sunrise-time'>{sunriseTime}</span>
                             </Info>
                         </div>
                         <div className="sunset">
@@ -51,7 +70,7 @@ const WeatherSummary = () => {
                             </Icon>
                             <Info theme={theme}>
                                 <span>Sunset</span>
-                                <span className='sunset-time'>08:37 PM</span>
+                                <span className='sunset-time'>{sunsetTime}</span>
                             </Info>
                         </div>
                     </SunriseSunsetContainer>

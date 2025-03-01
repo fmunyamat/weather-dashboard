@@ -66,6 +66,8 @@ export const AutocompleteContainer = styled.div
     justify-content: flex-end;
     height: 100%;
     width: 150%;
+    position: relative;
+    z-index: 2;
 `;
 
 export const SubmitButtonContainer = styled.div
