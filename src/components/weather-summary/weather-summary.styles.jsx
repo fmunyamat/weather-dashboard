@@ -28,7 +28,6 @@ export const Summary1 = styled.div
     align-items: center;
     height: 100%;
     width: 100%;
-    padding-left: 6vw;
 `;
 
 export const TempContainer = styled.div
@@ -141,7 +140,11 @@ export const Summary2 = styled.div
 
 export const WeatherDescription = styled.span
 `
-    font-size: 45px;
+    position: relative;
+    z-index: 3;
+    text-transform: capitalize;
+    max-width: 100%;
+    font-size: clamp(12px, 3vw, 45px);
     font-weight: 700;
     color: ${dynamicTheme("#3c3c3c", "white")};
 `
@@ -153,7 +156,6 @@ export const Summary3 = styled.div
     place-items: center;
     height: 100%;
     width: 100%;
-    padding-right: 6vw;
     
     .humidity, .wind-speed, .pressure, .uv {
         display: flex;

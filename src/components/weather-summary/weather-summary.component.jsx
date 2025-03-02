@@ -1,14 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import { DashboardThemeContext } from '../../contexts/dashboard-theme.context';
 import { WeatherDataContext } from '../../contexts/weather-data.context';
-import { convertUTCToLocalTime, formatUnixTimestampToDate } from '../../utils/formatting/time-format.utils';
-import SunnyWeatherIcon from '../animated-weather-icons/sunny/sunny.component';
-import sunrise from '../../assets/weather-icons/sunrise.png';
-import sunset from '../../assets/weather-icons/sunset.png';
-import humidity from '../../assets/weather-icons/humidity.png';
-import wind from '../../assets/weather-icons/wind.png';
-import uv from '../../assets/weather-icons/uv.png';
-import pressureGauge from '../../assets/weather-icons/gauge.png';
+import { convertUTCToLocalTime } from '../../utils/formatting/time-format.utils';
+import { ANIMATED_WEATHER_SUMMARY_ICONS, STATIC_WEATHER_SUMMARY_ICONS } from '../../constants/weather-icons';
 import {
     WeatherSummaryContainer,
     Summary1,
@@ -29,10 +23,12 @@ import {
 const WeatherSummary = () => {
     const { theme } = useContext(DashboardThemeContext);
     const { fullWeather, currentWeather } = useContext(WeatherDataContext);
-    const [currentTemp, setCurrentTemp] = useState('--°F');
-    const [feelsLikeTemp, setFeelsLikeTemp] = useState('--°F');
+    const [currentTemp, setCurrentTemp] = useState('--');
+    const [feelsLikeTemp, setFeelsLikeTemp] = useState('--');
     const [sunriseTime, setSunriseTime] = useState('0:00 AM');
     const [sunsetTime, setSunsetTime] = useState('0:00 AM');
+    const [weatherIcon, setWeatherIcon] = useState('--');
+    const [weatherDesc, setWeatherDesc] = useState('--')
     const getCurrentWeather = (currentWeatherType) =>  currentWeather && Math.ceil(currentWeatherType);
 
 
@@ -43,6 +39,8 @@ const WeatherSummary = () => {
             setFeelsLikeTemp(getCurrentWeather(currentWeather.feels_like));
             setSunriseTime(convertUTCToLocalTime(currentWeather.sunrise + fullWeather.timezone_offset));
             setSunsetTime(convertUTCToLocalTime(currentWeather.sunset + fullWeather.timezone_offset));
+            setWeatherIcon(ANIMATED_WEATHER_SUMMARY_ICONS[currentWeather.weather[0].icon]);
+            setWeatherDesc(currentWeather.weather[0].description);
         }
     }, [fullWeather]);
 
@@ -57,7 +55,7 @@ const WeatherSummary = () => {
                     <SunriseSunsetContainer>
                         <div className="sunrise">
                             <Icon theme={theme}>
-                                <span><img src={sunrise} alt="" /></span>
+                                <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunrise} alt="" /></span>
                             </Icon>
                             <Info theme={theme}>
                                 <span>Sunrise</span>
@@ -66,7 +64,7 @@ const WeatherSummary = () => {
                         </div>
                         <div className="sunset">
                             <Icon theme={theme}>
-                                <span><img src={sunset} alt="" /></span>
+                                <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunset} alt="" /></span>
                             </Icon>
                             <Info theme={theme}>
                                 <span>Sunset</span>
@@ -76,27 +74,27 @@ const WeatherSummary = () => {
                     </SunriseSunsetContainer>
                 </Summary1>
                 <Summary2>
-                    <SunnyWeatherIcon />
-                    <WeatherDescription theme={theme}>Sunny</WeatherDescription>
+                    {weatherIcon}
+                    <WeatherDescription theme={theme}>{weatherDesc}</WeatherDescription>
                 </Summary2>
                 <Summary3>
                     <div className="humidity">
-                        <GridIcon theme={theme}><img src={humidity} alt="" /></GridIcon>
+                        <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.humidity} alt="" /></GridIcon>
                         <GridNumber theme={theme}>41%</GridNumber>
                         <GridCategory theme={theme}>Humidity</GridCategory>
                     </div>
                     <div className="wind-speed">
-                        <GridIcon theme={theme}><img src={wind} alt="" /></GridIcon>
+                        <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.wind} alt="" /></GridIcon>
                         <GridNumber theme={theme}>5mph</GridNumber>
                         <GridCategory theme={theme}>Wind Speed</GridCategory>
                     </div>
                     <div className="pressure">
-                        <GridIcon theme={theme}><img src={pressureGauge} alt="" /></GridIcon>
+                        <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.pressure} alt="" /></GridIcon>
                         <GridNumber theme={theme}>997hpa</GridNumber>
                         <GridCategory theme={theme}>Pressure</GridCategory>
                     </div>
                     <div className="uv">
-                        <GridIcon theme={theme}><img src={uv} alt="" /></GridIcon>
+                        <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.uv} alt="" /></GridIcon>
                         <GridNumber theme={theme}>8</GridNumber>
                         <GridCategory theme={theme}>UV</GridCategory>
                     </div>

@@ -1,9 +1,9 @@
-import './sunny.styles.scss';
+import './clear-sky-day.styles.scss';
 
-const SunnyWeatherIcon = () => {
+const ClearSkyDay = () => {
     return (
         <>
-            <div className="sunny-weather-icon-container">
+            <div className="clear-sky-day-icon-container">
                 <svg
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -62,4 +62,4 @@ const SunnyWeatherIcon = () => {
     );
 };
 
-export default SunnyWeatherIcon;
+export default ClearSkyDay;

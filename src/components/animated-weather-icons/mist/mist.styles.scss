@@ -1,0 +1,43 @@
+.mist-icon-container svg {
+    transform: scale(5.5);
+    padding-bottom: 20px;
+    
+    @keyframes am-weather-mist {
+        0% {
+        transform: translateX(0);
+        opacity: 0.8;
+        }
+        50% {
+        transform: translateX(2px);
+        opacity: 0.6;
+        }
+        100% {
+        transform: translateX(0);
+        opacity: 0.8;
+        }
+    }
+
+    .am-weather-mist-1 {
+        animation-name: am-weather-mist;
+        animation-duration: 4s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+    }
+
+    .am-weather-mist-2 {
+        animation-name: am-weather-mist;
+        animation-duration: 5s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-delay: 1s;
+    }
+
+    .am-weather-mist-3 {
+        animation-name: am-weather-mist;
+        animation-duration: 6s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-delay: 2s;
+    }
+
+}
