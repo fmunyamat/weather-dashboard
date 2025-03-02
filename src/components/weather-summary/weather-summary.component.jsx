@@ -27,6 +27,10 @@ const WeatherSummary = () => {
     const [feelsLikeTemp, setFeelsLikeTemp] = useState('--');
     const [sunriseTime, setSunriseTime] = useState('0:00 AM');
     const [sunsetTime, setSunsetTime] = useState('0:00 AM');
+    const [humidity, setHumidity] = useState('--');
+    const [windSpeed, setWindSpeed] = useState('--');
+    const [pressure, setPressure] = useState('--');
+    const [uv, setUv] = useState('--');
     const [weatherIcon, setWeatherIcon] = useState('--');
     const [weatherDesc, setWeatherDesc] = useState('--')
     const getCurrentWeather = (currentWeatherType) =>  currentWeather && Math.ceil(currentWeatherType);
@@ -41,6 +45,10 @@ const WeatherSummary = () => {
             setSunsetTime(convertUTCToLocalTime(currentWeather.sunset + fullWeather.timezone_offset));
             setWeatherIcon(ANIMATED_WEATHER_SUMMARY_ICONS[currentWeather.weather[0].icon]);
             setWeatherDesc(currentWeather.weather[0].description);
+            setHumidity(currentWeather.humidity);
+            setWindSpeed(currentWeather.wind_speed);
+            setPressure(currentWeather.pressure);
+            setUv(currentWeather.uvi);
         }
     }, [fullWeather]);
 
@@ -80,22 +88,22 @@ const WeatherSummary = () => {
                 <Summary3>
                     <div className="humidity">
                         <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.humidity} alt="" /></GridIcon>
-                        <GridNumber theme={theme}>41%</GridNumber>
+                        <GridNumber theme={theme}>{`${humidity}%`}</GridNumber>
                         <GridCategory theme={theme}>Humidity</GridCategory>
                     </div>
                     <div className="wind-speed">
                         <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.wind} alt="" /></GridIcon>
-                        <GridNumber theme={theme}>5mph</GridNumber>
+                        <GridNumber theme={theme}>{`${windSpeed}mph`}</GridNumber>
                         <GridCategory theme={theme}>Wind Speed</GridCategory>
                     </div>
                     <div className="pressure">
                         <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.pressure} alt="" /></GridIcon>
-                        <GridNumber theme={theme}>997hpa</GridNumber>
+                        <GridNumber theme={theme}>{`${pressure}hpa`}</GridNumber>
                         <GridCategory theme={theme}>Pressure</GridCategory>
                     </div>
                     <div className="uv">
                         <GridIcon theme={theme}><img src={STATIC_WEATHER_SUMMARY_ICONS.uv} alt="" /></GridIcon>
-                        <GridNumber theme={theme}>8</GridNumber>
+                        <GridNumber theme={theme}>{uv}</GridNumber>
                         <GridCategory theme={theme}>UV</GridCategory>
                     </div>
                 </Summary3>

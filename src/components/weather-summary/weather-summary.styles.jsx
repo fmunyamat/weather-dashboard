@@ -170,6 +170,14 @@ export const Summary3 = styled.div
         padding-top: 25px;
     }
 
+    .humidity, .pressure {
+        padding-left: 2vw;
+    }
+
+    .wind-speed, .uv {
+        padding-right: 2vw;
+    }
+
     .pressure, .uv {
         padding-bottom: 25px;
     }

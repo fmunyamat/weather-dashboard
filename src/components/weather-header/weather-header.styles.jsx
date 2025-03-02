@@ -6,6 +6,7 @@ export const WeatherHeaderContainer = styled.div
     justify-content: space-between;
     padding-top: 50px;
     height: 80px;
+    min-width: 916px;
 
     > *:first-child {  /* Targets the first direct child */
         margin-left: 5vw;
