@@ -10,7 +10,7 @@ export const CityTimeContainer = styled.div
     border-radius: 20px;
     box-shadow: 9px 9px 5px rgba(0, 0, 0, 0.3);
     height: 330px;
-    width: 40vw;
+    width: 400px;
     background-color: ${(props) => (props.theme === "Light" ? "#d9d9d9" : "#444444")};
 `;
 

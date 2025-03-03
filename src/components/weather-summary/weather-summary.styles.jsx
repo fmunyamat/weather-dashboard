@@ -7,11 +7,11 @@ const dynamicTheme = (lightTheme, darkTheme) => (
 export const WeatherSummaryContainer = styled.div
 `
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-radius: 20px;
     box-shadow: 9px 9px 5px rgba(0, 0, 0, 0.3);
-    width: 100%;
+    width: 900px;
     margin-left: 30px;
     background-color: ${dynamicTheme("#d9d9d9", "#444444")};
 

@@ -3,18 +3,10 @@ import styled from "styled-components";
 export const WeatherHeaderContainer = styled.div
 `
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding-top: 50px;
+    margin: 0 30px;
     height: 80px;
-    min-width: 916px;
-
-    > *:first-child {  /* Targets the first direct child */
-        margin-left: 5vw;
-    }
-
-    > *:last-child {  /* Targets CLButtonContainer */
-        margin-right: 5vw;
-    }
 `;
 
 export const SwitchContainer = styled.div
@@ -24,7 +16,7 @@ export const SwitchContainer = styled.div
     align-items: center;
     justify-content: center;
     height: 100%;
-    width: 100%;
+    width: 300px;
 `;
 
 
@@ -33,7 +25,7 @@ export const AddressInputContainer = styled.div
     display: flex;
     justify-content: center;
     height: 100%;
-    width: 100%;
+    width: 800px;
 
     input, button {
         background-color: ${(props) => (props.theme === "Light" ? "#d9d9d9" : "#444444")};
@@ -41,7 +33,7 @@ export const AddressInputContainer = styled.div
 
     input {
         height: ${(props) => (props.theme === "Light" ? "97.5%;" : "100%")};
-        width: 40vw;
+        width: 550px;
         padding: 0;
         border-radius: 40px 0 0px 40px;
         border: ${(props) => (props.theme === "Light" ? "1px solid black;" : "none")};
@@ -66,7 +58,7 @@ export const AutocompleteContainer = styled.div
     display: flex;
     justify-content: flex-end;
     height: 100%;
-    width: 150%;
+    width: 500px;
     position: relative;
     z-index: 2;
 `;
@@ -76,7 +68,7 @@ export const SubmitButtonContainer = styled.div
     display: flex;
     justify-content: flex-start;
     height: 100%;
-    width: 50%
+    width: 100px;
 `;
 
 export const SubmitButton = styled.button
@@ -96,7 +88,7 @@ export const CLButtonContainer = styled.div
     display: flex;
     justify-content: center;
     height: 100%;
-    width: 100%;
+    width: 200px;
     position: relative;
     z-index: 2;
 `;
