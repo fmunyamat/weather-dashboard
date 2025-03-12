@@ -1,15 +1,15 @@
 import { createContext, useState } from "react";
 
 export const DashboardThemeContext = createContext({
-    theme: 'Light',
-    setTheme: () => null
+    isDarkMode: false,
+    setIsDarkMode: () => null
 });
 
 
 export const DashboardThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState('Light');
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-    const value = { theme, setTheme };
+    const value = { isDarkMode, setIsDarkMode };
 
     return <DashboardThemeContext.Provider value={value}>{ children }</DashboardThemeContext.Provider>
 };

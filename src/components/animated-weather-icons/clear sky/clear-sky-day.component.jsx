@@ -1,10 +1,11 @@
 import './clear-sky-day.styles.scss';
 
-const ClearSkyDay = () => {
+const ClearSkyDay = ({ style }) => {
     return (
         <>
             <div className="clear-sky-day-icon-container">
                 <svg
+                    style={style}
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"

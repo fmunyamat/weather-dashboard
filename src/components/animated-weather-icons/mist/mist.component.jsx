@@ -1,10 +1,11 @@
 import './mist.styles.scss';
 
-const Mist = () => {
+const Mist = ({ style }) => {
     return (
         <>
             <div className="mist-icon-container">
                 <svg
+                    style={style}
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"

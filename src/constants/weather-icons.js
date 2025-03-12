@@ -16,26 +16,26 @@ import windIcon from '../assets/weather-icons/wind.png';
 import uvIcon from '../assets/weather-icons/uv.png';
 import pressureGaugeIcon from '../assets/weather-icons/gauge.png';
 
-export const ANIMATED_WEATHER_SUMMARY_ICONS = {
-    '01d': <ClearSkyDay />,
-    '01n': <ClearSkyNight />,
-    '02d': <FewCloudsDay />,
-    '02n': <FewCloudsNight />,
-    '03d': <ScatteredClouds />,
-    '03n': <ScatteredClouds />,
-    '04d': <ScatteredClouds />,
-    '04n': <ScatteredClouds />,
-    '09d': <ShowerRain />,
-    '09n': <ShowerRain />,
-    '10d': <RainDay />,
-    '10n': <RainNight />,
-    '11d': <Thunderstorm />,
-    '11n': <Thunderstorm />,
-    '13d': <Snow />,
-    '13n': <Snow />,
-    '50d': <Mist />,
-    '50n': <Mist />
-}
+export const animatedIcons = (style) => ({
+    '01d': <ClearSkyDay style={style}/>,
+    '01n': <ClearSkyNight style={style}/>,
+    '02d': <FewCloudsDay style={style}/>,
+    '02n': <FewCloudsNight style={style}/>,
+    '03d': <ScatteredClouds style={style}/>,
+    '03n': <ScatteredClouds style={style}/>,
+    '04d': <ScatteredClouds style={style}/>,
+    '04n': <ScatteredClouds style={style}/>,
+    '09d': <ShowerRain style={style}/>,
+    '09n': <ShowerRain style={style}/>,
+    '10d': <RainDay style={style}/>,
+    '10n': <RainNight style={style}/>,
+    '11d': <Thunderstorm style={style}/>,
+    '11n': <Thunderstorm style={style}/>,
+    '13d': <Snow style={style}/>,
+    '13n': <Snow style={style}/>,
+    '50d': <Mist style={style}/>,
+    '50n': <Mist style={style}/>
+})
 
 export const STATIC_WEATHER_SUMMARY_ICONS = {
     sunrise: sunriseIcon,

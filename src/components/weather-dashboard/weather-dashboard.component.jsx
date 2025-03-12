@@ -5,11 +5,11 @@ import { DashboardThemeContext } from "../../contexts/dashboard-theme.context";
 import { DashboardBody } from "./weather-dashboard.styles";
 
 const WeatherDashboard = () => {
-  const { theme } = useContext(DashboardThemeContext);
+  const { isDarkMode } = useContext(DashboardThemeContext);
 
     return (
       <>
-        <DashboardBody className={`${theme.toLowerCase()}-mode`}>
+        <DashboardBody isDarkMode={isDarkMode}>
           <WeatherHeader />
           <WeatherBody />
         </DashboardBody>

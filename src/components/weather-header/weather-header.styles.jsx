@@ -1,3 +1,4 @@
+import { themeSelect } from "../../constants/weather-dashboard-theme";
 import styled from "styled-components";
 
 export const WeatherHeaderContainer = styled.div
@@ -28,26 +29,26 @@ export const AddressInputContainer = styled.div
     width: 800px;
 
     input, button {
-        background-color: ${(props) => (props.theme === "Light" ? "#d9d9d9" : "#444444")};
+        background-color: ${themeSelect("#444444", "#d9d9d9")};
     }
 
     input {
-        height: ${(props) => (props.theme === "Light" ? "97.5%;" : "100%")};
+        height: ${themeSelect("100%", "97.5%;")};
         width: 550px;
         padding: 0;
         border-radius: 40px 0 0px 40px;
-        border: ${(props) => (props.theme === "Light" ? "1px solid black;" : "none")};
-        ${(props) => (props.theme === "Light" ? "border-right: none;" : "")};
+        border: ${themeSelect("none", "1px solid black;")};
+        ${themeSelect("", "border-right: none" )};
         text-indent: 10px;
-        color: ${(props) => (props.theme === "Dark" && "white")};
+        color: ${(props) => (props.isDarkMode && "white")};
 
         &::placeholder {
-            color: ${(props) => (props.theme === "Light" ? "#878787" : "#b7b7b7")};
+            color: ${themeSelect("#b7b7b7", "#878787")};
         }
     }
 
         svg {
-            color: ${(props) => (props.theme === "Light" ? "#878787" : "#b7b7b7")};
+            color: ${themeSelect("#b7b7b7", "#878787")};
             font-size: 25px;
         }
     }
@@ -78,8 +79,8 @@ export const SubmitButton = styled.button
     height: 100%;
     width: 60px;
     border-radius: 0 40px 40px 0;
-    border: ${(props) => (props.theme === "Light" ? "1px solid black;" : "none")};
-    ${(props) => (props.theme === "Light" ? "border-left: none;" : "")};
+    border: ${(props) => (props.isDarkMode ? "none" : "1px solid black")};
+    ${(props) => (props.isDarkMode ? "" : "border-left: none")};
     cursor: pointer;
 `;
 

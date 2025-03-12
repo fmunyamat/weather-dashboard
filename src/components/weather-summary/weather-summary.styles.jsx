@@ -1,8 +1,5 @@
+import { themeSelect } from "../../constants/weather-dashboard-theme";
 import styled from "styled-components";
-
-const dynamicTheme = (lightTheme, darkTheme) => (
-    (props) => (props.theme === "Light" ? lightTheme : darkTheme)
-);
 
 export const WeatherSummaryContainer = styled.div
 `
@@ -11,9 +8,10 @@ export const WeatherSummaryContainer = styled.div
     align-items: center;
     border-radius: 20px;
     box-shadow: 9px 9px 5px rgba(0, 0, 0, 0.3);
+    height: 100%;
     width: 900px;
     margin-left: 30px;
-    background-color: ${dynamicTheme("#d9d9d9", "#444444")};
+    background-color: ${themeSelect( "#444444", "#d9d9d9")};
 
     &:first-child {
         margin-left: 30px;
@@ -45,9 +43,7 @@ export const Temp = styled.span
 `
     font-size: 50px;
     font-weight: 800;
-    background: ${dynamicTheme(
-        "linear-gradient(90deg, #323232, #9c9c9c)",
-        "linear-gradient(90deg, #e7e7e7 , #757575)")};
+    background: linear-gradient(90deg, ${themeSelect( "#e7e7e7, #757575)", " #323232, #9c9c9c)")};
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -58,7 +54,7 @@ export const FeelsLikeTemp = styled.span
 `
     font-size: 20px;
     margin-bottom: 20px;
-    color: ${dynamicTheme("#4d4d4d", "#8c8c8c")};
+    color: ${themeSelect( "#8c8c8c", "#4d4d4d")};
     font-weight: 700;
 `;
 
@@ -101,9 +97,9 @@ export const Icon = styled.div
     height: 100%;
     width: 100%;
     padding-left: 4vw;
-    filter: ${dynamicTheme(
-        "brightness(0) saturate(100%) invert(23%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(94%) contrast(100%)",
-        "white")};
+    filter: ${themeSelect(
+        "white",
+        "brightness(0) saturate(100%) invert(23%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(94%) contrast(100%)",)};
 `;
 
 export const Info = styled.div
@@ -115,7 +111,7 @@ export const Info = styled.div
     height: 100%;
     width: 100%;
     padding-right: 4vw;
-    color: ${dynamicTheme("#3c3c3c", "white")};
+    color: ${themeSelect( "white", "#3c3c3c")};
     font-weight: 700;
 
     .sunrise-time, .sunset-time {
@@ -143,10 +139,11 @@ export const WeatherDescription = styled.span
     position: relative;
     z-index: 3;
     text-transform: capitalize;
+    text-align: center;
     max-width: 100%;
-    font-size: clamp(12px, 3vw, 45px);
+    font-size: 2.3rem;
     font-weight: 700;
-    color: ${dynamicTheme("#3c3c3c", "white")};
+    color: ${themeSelect( "white", "#3c3c3c")};
 `
 
 export const Summary3 = styled.div
@@ -187,9 +184,9 @@ export const GridIcon = styled.span
 `
     img {
         width: 50px;
-        filter: ${dynamicTheme(
-            "brightness(0) saturate(100%) invert(23%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(94%) contrast(100%)",
-            "brightness(0) invert(1)")};
+        filter: ${themeSelect(
+            "brightness(0) invert(1)",
+            "brightness(0) saturate(100%) invert(23%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(94%) contrast(100%)")};
     }
 `;
 
@@ -197,11 +194,11 @@ export const GridNumber = styled.span
 `
     font-weight: 700;
     padding-top: 10px;
-    color: ${dynamicTheme("#3c3c3c", "white")};
+    color: ${themeSelect( "white", "#3c3c3c")};
 `;
 
 export const GridCategory = styled.span
 `
     padding-top: 5px;
-    color: ${dynamicTheme("#3c3c3c", "white")};
+    color: ${themeSelect( "white", "#3c3c3c",)};
 `;

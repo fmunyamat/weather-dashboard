@@ -19,7 +19,7 @@ import {
 
 const WeatherHeader = () => {
     const { fullWeather, currentWeather, hourlyWeather, dailyWeather, fetchWeatherForecast } = useContext(WeatherDataContext);
-    const { theme, setTheme } = useContext(DashboardThemeContext);
+    const { isDarkMode, setIsDarkMode } = useContext(DashboardThemeContext);
     const { 
         coordinates,
         setCoordinates,
@@ -67,6 +67,7 @@ const WeatherHeader = () => {
     
     const toggleSwitchHandler = () => {
         setIsLightToggle(!isLightToggle);
+        setIsDarkMode(!isDarkMode);
     }
 
     useEffect(() => {
@@ -74,10 +75,6 @@ const WeatherHeader = () => {
             fetchWeatherForecast(coordinates.lat, coordinates.long);
         }
     }, [coordinates]);
-    
-    useEffect(() => {
-        setTheme(isLightToggle ? 'Light': 'Dark');
-    }, [isLightToggle]); 
 
     // console.log(test);
     // console.log(addressFull);
@@ -87,7 +84,7 @@ const WeatherHeader = () => {
     // console.log(hourlyWeather);
     // console.log(dailyWeather);
     // console.log(isLightToggle);
-    // console.log(theme);
+    // console.log(isDarkMode);
     
     
     
@@ -96,9 +93,9 @@ const WeatherHeader = () => {
         <WeatherHeaderContainer>
             <SwitchContainer>
                 <MaterialUISwitch onClick={toggleSwitchHandler} />
-                <label style={{color: isLightToggle ? 'black' : 'white'}}>{theme} Mode</label>
+                <label style={{color: isLightToggle ? 'black' : 'white'}}>{isDarkMode ? "Dark" : "Light"} Mode</label>
             </SwitchContainer>
-            <AddressInputContainer theme={theme}>
+            <AddressInputContainer isDarkMode={isDarkMode}>
                 <AutocompleteContainer>
                     <AddressAutocomplete
                         onChange={onChangeHandler}
@@ -107,7 +104,7 @@ const WeatherHeader = () => {
                     />
                 </AutocompleteContainer>
                 <SubmitButtonContainer>
-                    <SubmitButton theme={theme} type="submit" onClick={submitHandler}>
+                    <SubmitButton isDarkMode={isDarkMode} type="submit" onClick={submitHandler}>
                         <span><FontAwesomeIcon icon={faMagnifyingGlass} size='2x' /></span>
                     </SubmitButton>
                 </SubmitButtonContainer>
