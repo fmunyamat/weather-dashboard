@@ -24,6 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # code
-/landing-page/
+/src/components/landing-page/
 1.js
 2.js

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import { LocationContext } from "../../contexts/location.context";
-import { getAddress } from "../../utils/apis/geocode-api.utils";
+import { LocationContext } from "../../../contexts/location.context";
+import { getAddress } from "../../../utils/apis/geocode-api.utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { CLButton } from "./current-location-button.styles";

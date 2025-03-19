@@ -1,4 +1,4 @@
-import { themeSelect } from "../../constants/weather-dashboard-theme";
+import { themeSelect } from "../../../constants/weather-dashboard-theme";
 import styled from "styled-components";
 
 export const WeatherHeaderContainer = styled.div
@@ -40,7 +40,7 @@ export const AddressInputContainer = styled.div
         border: ${themeSelect("none", "1px solid black;")};
         ${themeSelect("", "border-right: none" )};
         text-indent: 10px;
-        color: ${(props) => (props.isDarkMode && "white")};
+        color: ${(props) => (props.$isDarkMode && "white")};
 
         &::placeholder {
             color: ${themeSelect("#b7b7b7", "#878787")};
@@ -79,8 +79,8 @@ export const SubmitButton = styled.button
     height: 100%;
     width: 60px;
     border-radius: 0 40px 40px 0;
-    border: ${(props) => (props.isDarkMode ? "none" : "1px solid black")};
-    ${(props) => (props.isDarkMode ? "" : "border-left: none")};
+    border: ${themeSelect("none", "1px solid black")};
+    ${(props) => (props.$isDarkMode ? "" : "border-left: none")};
     cursor: pointer;
 `;
 

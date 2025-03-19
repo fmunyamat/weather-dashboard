@@ -1,14 +1,14 @@
-import ClearSkyDay from "../components/animated-weather-icons/clear sky/clear-sky-day.component";
-import ClearSkyNight from "../components/animated-weather-icons/clear sky/clear-sky-night.component";
-import FewCloudsDay from "../components/animated-weather-icons/clouds/few-clouds-day.component";
-import FewCloudsNight from "../components/animated-weather-icons/clouds/few-clouds-night.component";
-import ScatteredClouds from "../components/animated-weather-icons/clouds/scattered-clouds.component";
-import ShowerRain from "../components/animated-weather-icons/rain/shower-rain.component";
-import RainDay from "../components/animated-weather-icons/rain/rain-day.component";
-import RainNight from "../components/animated-weather-icons/rain/rain-night.component";
-import Thunderstorm from "../components/animated-weather-icons/thunderstorm/thunderstorm.component";
-import Snow from "../components/animated-weather-icons/snow/snow.component";
-import Mist from "../components/animated-weather-icons/mist/mist.component";
+import ClearSkyDay from "../components/global/animated-weather-icons/clear sky/clear-sky-day.component";
+import ClearSkyNight from "../components/global/animated-weather-icons/clear sky/clear-sky-night.component";
+import FewCloudsDay from "../components/global/animated-weather-icons/clouds/few-clouds-day.component";
+import FewCloudsNight from "../components/global/animated-weather-icons/clouds/few-clouds-night.component";
+import ScatteredClouds from "../components/global/animated-weather-icons/clouds/scattered-clouds.component";
+import ShowerRain from "../components/global/animated-weather-icons/rain/shower-rain.component";
+import RainDay from "../components/global/animated-weather-icons/rain/rain-day.component";
+import RainNight from "../components/global/animated-weather-icons/rain/rain-night.component";
+import Thunderstorm from "../components/global/animated-weather-icons/thunderstorm/thunderstorm.component";
+import Snow from "../components/global/animated-weather-icons/snow/snow.component";
+import Mist from "../components/global/animated-weather-icons/mist/mist.component";
 import sunriseIcon from '../assets/weather-icons/sunrise.png'
 import sunsetIcon from '../assets/weather-icons/sunset.png';
 import humidityIcon from '../assets/weather-icons/humidity.png';

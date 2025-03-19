@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
-import { DashboardThemeContext } from '../../contexts/dashboard-theme.context';
-import { WeatherDataContext } from '../../contexts/weather-data.context.jsx';
-import { LocationContext } from '../../contexts/location.context.jsx';
-import { convertUTCToLocalTime } from '../../utils/formatting/time-format.utils.js';
+import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context.jsx';
+import { WeatherDataContext } from '../../../contexts/weather-data.context.jsx';
+import { LocationContext } from '../../../contexts/location.context.jsx';
+import { convertUTCToLocalTime } from '../../../utils/formatting/time-format.utils.js';
 import { CityTimeContainer, City, CurrentTime, CurrentDate } from './city-time.styles.jsx';
 import './city-time.styles.jsx';
 
@@ -26,10 +26,10 @@ const CityTime = () => {
   
     return (
         <>
-            <CityTimeContainer isDarkMode={isDarkMode}>
-                <City isDarkMode={isDarkMode}>{displayCityText}</City>
-                <CurrentTime isDarkMode={isDarkMode}>{currentTime}</CurrentTime>
-                <CurrentDate isDarkMode={isDarkMode}>{currentDate}</CurrentDate>
+            <CityTimeContainer $isDarkMode={isDarkMode}>
+                <City $isDarkMode={isDarkMode}>{displayCityText}</City>
+                <CurrentTime $isDarkMode={isDarkMode}>{currentTime}</CurrentTime>
+                <CurrentDate $isDarkMode={isDarkMode}>{currentDate}</CurrentDate>
             </CityTimeContainer>
         </>
     );

@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect } from 'react';
-import { DashboardThemeContext } from '../../contexts/dashboard-theme.context';
-import { WeatherDataContext } from '../../contexts/weather-data.context';
-import { convertUTCToLocalTime } from '../../utils/formatting/time-format.utils';
-import { STATIC_WEATHER_SUMMARY_ICONS } from '../../constants/weather-icons';
-import WeatherIcon from '../weather-icon/weather-icon.component';
+import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context';
+import { WeatherDataContext } from '../../../contexts/weather-data.context';
+import { convertUTCToLocalTime } from '../../../utils/formatting/time-format.utils';
+import { STATIC_WEATHER_SUMMARY_ICONS } from '../../../constants/weather-icons';
+import WeatherIcon from '../../global/weather-icon/weather-icon.component';
 import {
     WeatherSummaryContainer,
     Summary1,
@@ -129,27 +129,27 @@ const WeatherSummary = () => {
 
     return (
         <>
-            <WeatherSummaryContainer isDarkMode={isDarkMode}>
+            <WeatherSummaryContainer $isDarkMode={isDarkMode}>
                 <Summary1>
                     <TempContainer>
-                        <Temp isDarkMode={isDarkMode}>{`${currentTemp}°F`}</Temp>
-                        <FeelsLikeTemp isDarkMode={isDarkMode}>Feels Like <span>{`${feelsLikeTemp}°F`}</span></FeelsLikeTemp>
+                        <Temp $isDarkMode={isDarkMode}>{`${currentTemp}°F`}</Temp>
+                        <FeelsLikeTemp $isDarkMode={isDarkMode}>Feels Like <span>{`${feelsLikeTemp}°F`}</span></FeelsLikeTemp>
                     </TempContainer>
                     <SunriseSunsetContainer>
                         <div className="sunrise">
-                            <Icon isDarkMode={isDarkMode}>
+                            <Icon $isDarkMode={isDarkMode}>
                                 <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunrise} alt="" /></span>
                             </Icon>
-                            <Info isDarkMode={isDarkMode}>
+                            <Info $isDarkMode={isDarkMode}>
                                 <span>Sunrise</span>
                                 <span className='sunrise-time'>{sunriseTime}</span>
                             </Info>
                         </div>
                         <div className="sunset">
-                            <Icon isDarkMode={isDarkMode}>
+                            <Icon $isDarkMode={isDarkMode}>
                                 <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunset} alt="" /></span>
                             </Icon>
-                            <Info isDarkMode={isDarkMode}>
+                            <Info $isDarkMode={isDarkMode}>
                                 <span>Sunset</span>
                                 <span className='sunset-time'>{sunsetTime}</span>
                             </Info>
@@ -158,28 +158,28 @@ const WeatherSummary = () => {
                 </Summary1>
                 <Summary2>
                     <WeatherIcon stylesObject={weatherSummaryIconStyles[weatherIconCode]} iconCode={weatherIconCode}/>
-                    <WeatherDescription isDarkMode={isDarkMode}>{weatherDesc}</WeatherDescription>
+                    <WeatherDescription $isDarkMode={isDarkMode}>{weatherDesc}</WeatherDescription>
                 </Summary2>
                 <Summary3>
                     <div className="humidity">
-                        <GridIcon isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.humidity} alt="" /></GridIcon>
-                        <GridNumber isDarkMode={isDarkMode}>{`${humidity}%`}</GridNumber>
-                        <GridCategory isDarkMode={isDarkMode}>Humidity</GridCategory>
+                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.humidity} alt="" /></GridIcon>
+                        <GridNumber $isDarkMode={isDarkMode}>{`${humidity}%`}</GridNumber>
+                        <GridCategory $isDarkMode={isDarkMode}>Humidity</GridCategory>
                     </div>
                     <div className="wind-speed">
-                        <GridIcon isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.wind} alt="" /></GridIcon>
-                        <GridNumber isDarkMode={isDarkMode}>{`${Math.round(windSpeed)}mph`}</GridNumber>
-                        <GridCategory isDarkMode={isDarkMode}>Wind Speed</GridCategory>
+                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.wind} alt="" /></GridIcon>
+                        <GridNumber $isDarkMode={isDarkMode}>{`${Math.round(windSpeed)}mph`}</GridNumber>
+                        <GridCategory $isDarkMode={isDarkMode}>Wind Speed</GridCategory>
                     </div>
                     <div className="pressure">
-                        <GridIcon isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.pressure} alt="" /></GridIcon>
-                        <GridNumber isDarkMode={isDarkMode}>{`${pressure}hpa`}</GridNumber>
-                        <GridCategory isDarkMode={isDarkMode}>Pressure</GridCategory>
+                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.pressure} alt="" /></GridIcon>
+                        <GridNumber $isDarkMode={isDarkMode}>{`${pressure}hpa`}</GridNumber>
+                        <GridCategory $isDarkMode={isDarkMode}>Pressure</GridCategory>
                     </div>
                     <div className="uv">
-                        <GridIcon isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.uv} alt="" /></GridIcon>
-                        <GridNumber isDarkMode={isDarkMode}>{uv}</GridNumber>
-                        <GridCategory isDarkMode={isDarkMode}>UV</GridCategory>
+                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.uv} alt="" /></GridIcon>
+                        <GridNumber $isDarkMode={isDarkMode}>{uv}</GridNumber>
+                        <GridCategory $isDarkMode={isDarkMode}>UV</GridCategory>
                     </div>
                 </Summary3>
             </WeatherSummaryContainer>

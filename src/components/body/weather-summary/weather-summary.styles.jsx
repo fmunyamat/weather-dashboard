@@ -1,4 +1,4 @@
-import { themeSelect } from "../../constants/weather-dashboard-theme";
+import { themeSelect } from "../../../constants/weather-dashboard-theme";
 import styled from "styled-components";
 
 export const WeatherSummaryContainer = styled.div

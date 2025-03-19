@@ -1,7 +1,7 @@
-import WeatherHeader from "../weather-header/weather-header.component";
-import WeatherBody from "../weather-body/weather-body.component";
 import { useContext } from "react";
 import { DashboardThemeContext } from "../../contexts/dashboard-theme.context";
+import WeatherHeader from "../header/weather-header/weather-header.component";
+import WeatherBody from "../body/weather-body/weather-body.component";
 import { DashboardBody } from "./weather-dashboard.styles";
 
 const WeatherDashboard = () => {
@@ -9,7 +9,7 @@ const WeatherDashboard = () => {
 
     return (
       <>
-        <DashboardBody isDarkMode={isDarkMode}>
+        <DashboardBody $isDarkMode={isDarkMode}>
           <WeatherHeader />
           <WeatherBody />
         </DashboardBody>

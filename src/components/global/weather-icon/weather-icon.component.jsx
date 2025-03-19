@@ -1,4 +1,4 @@
-import { animatedIcons } from "../../constants/weather-icons";
+import { animatedIcons } from "../../../constants/weather-icons";
 
 
 const WeatherIcon = ({ stylesObject, iconCode }) => {
