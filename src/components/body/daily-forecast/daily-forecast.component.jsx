@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { WeatherDataContext } from '../../contexts/weather-data.context';
-import { DashboardThemeContext } from '../../contexts/dashboard-theme.context';
-import { convertUTCToLocalTime } from '../../utils/formatting/time-format.utils';
-import WeatherIcon from '../weather-icon/weather-icon.component';
-import Tooltip from '../tooltip/tooltip.component';
+import React, { useContext } from 'react';
+import { WeatherDataContext } from '../../../contexts/weather-data.context';
+import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context';
+import { convertUTCToLocalTime } from '../../../utils/formatting/time-format.utils';
+import WeatherIcon from '../../global/weather-icon/weather-icon.component';
+import Tooltip from '../../global/tooltip/tooltip.component';
 import { 
     DailyForecastContainer,
     ForecastTitle,
@@ -74,12 +74,12 @@ const DailyForecast = () => {
     
     return (
         <>
-            <DailyForecastContainer isDarkMode={isDarkMode}>
-                <ForecastTitle isDarkMode={isDarkMode}>8 Day Forecast</ForecastTitle>
+            <DailyForecastContainer $isDarkMode={isDarkMode}>
+                <ForecastTitle $isDarkMode={isDarkMode}>8 Day Forecast</ForecastTitle>
                 <ForecastDisplay>
-                    {Array.isArray(dailyWeather) && dailyWeather.map((weatherData) => {
+                    {Array.isArray(dailyWeather) && dailyWeather.map((weatherData, index) => {
                         return ( 
-                            <>
+                            <React.Fragment key={index}>
                                 <Tooltip
                                     tooltipData={tooltipForecastData(
                                             weatherData.sunrise, 
@@ -89,7 +89,7 @@ const DailyForecast = () => {
                                         )}
                                 >
                                     <ForecastGroupContainer>
-                                        <ForecastDateInfoContainer isDarkMode={isDarkMode}>
+                                        <ForecastDateInfoContainer $isDarkMode={isDarkMode}>
                                             <ForecastDate>
                                                 <span className='daily-forecast-month'>{convertUTCToLocalTime(weatherData.dt, 'month')}</span>
                                                 <span className='daily-forecast-day'>{convertUTCToLocalTime(weatherData.dt, 'day')}</span>
@@ -104,7 +104,7 @@ const DailyForecast = () => {
                                         </ForecastDateInfoContainer>
                                     </ForecastGroupContainer>
                                 </Tooltip>
-                            </>
+                            </React.Fragment>
                         )
                     })}
                 </ForecastDisplay>

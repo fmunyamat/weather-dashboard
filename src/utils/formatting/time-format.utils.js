@@ -33,16 +33,19 @@ export const convertUTCToLocalTime = (unixTimestamp, timeDateOption ) => {
         case 'month':
         return date.toLocaleString('en-US', {
           month: 'short',
+          timeZone: 'UTC'  // Important: treat the time as UTC
         });
         
         case 'day':
         return date.toLocaleString('en-US', {
           day: 'numeric',
+          timeZone: 'UTC'  // Important: treat the time as UTC
         });
         
         case 'year':
         return date.toLocaleString('en-US', {
-          year: 'numeric'
+          year: 'numeric',
+          timeZone: 'UTC'  // Important: treat the time as UTC
         });
         
       default:

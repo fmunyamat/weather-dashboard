@@ -1,9 +1,8 @@
 import { useContext } from 'react';
-import { DashboardThemeContext } from '../../contexts/dashboard-theme.context';
+import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
 import { styled, tooltipClasses } from '@mui/material';
-import { themeSelect } from '../../constants/weather-dashboard-theme';
 
 
 const TooltipHover = ({ tooltipData, children }) => {
@@ -12,7 +11,6 @@ const TooltipHover = ({ tooltipData, children }) => {
     const HtmlTooltip = styled(({ className, ...props }) => (
         <Tooltip 
             {...props}
-            zoom
             arrow
             placement='top'
             slots={{ transition: Zoom }}

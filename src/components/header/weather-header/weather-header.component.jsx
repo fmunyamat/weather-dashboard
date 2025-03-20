@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { DashboardThemeContext } from "../../contexts/dashboard-theme.context";
-import { WeatherDataContext } from "../../contexts/weather-data.context";
-import { LocationContext } from "../../contexts/location.context";
-import { getCoordinates } from "../../utils/apis/geocode-api.utils";
-import AddressAutocomplete from "../address-autocomplete/address-autocomplete.component";
+import { DashboardThemeContext } from "../../../contexts/dashboard-theme.context";
+import { WeatherDataContext } from "../../../contexts/weather-data.context";
+import { LocationContext } from "../../../contexts/location.context";
+import { getCoordinates } from "../../../utils/apis/geocode-api.utils";
+import AddressAutocomplete from "../../global/address-autocomplete/address-autocomplete.component";
 import { MaterialUISwitch } from "../material-ui-switch/material-ui-switch.component";
 import CurrentLocationButton from "../current-location-button/current-location-button.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +18,7 @@ import {
     SubmitButtonContainer } from "./weather-header.styles";
 
 const WeatherHeader = () => {
-    const { fullWeather, currentWeather, hourlyWeather, dailyWeather, fetchWeatherForecast } = useContext(WeatherDataContext);
+    const { fetchWeatherForecast } = useContext(WeatherDataContext);
     const { isDarkMode, setIsDarkMode } = useContext(DashboardThemeContext);
     const { 
         coordinates,
@@ -33,10 +33,12 @@ const WeatherHeader = () => {
 
     const onChangeHandler = (e) => {
 
-        const addressInput = e.properties.address_line1;
-        const addressCityInput = e.properties.city;
+        const addressInput = e.properties.formatted;
+        const addressCityInput = e.properties.city ? e.properties.city : e.properties.county;
         setAddressFull(addressInput);
         setAddressCity(addressCityInput);
+        console.log(e);
+        
     }
 
     const  fetchCoordinates = async () => {
@@ -79,7 +81,7 @@ const WeatherHeader = () => {
     // console.log(test);
     // console.log(addressFull);
     // console.log(coordinates);
-    console.log(fullWeather);
+    // console.log(fullWeather);
     // console.log(currentWeather);
     // console.log(hourlyWeather);
     // console.log(dailyWeather);
@@ -95,7 +97,7 @@ const WeatherHeader = () => {
                 <MaterialUISwitch onClick={toggleSwitchHandler} />
                 <label style={{color: isLightToggle ? 'black' : 'white'}}>{isDarkMode ? "Dark" : "Light"} Mode</label>
             </SwitchContainer>
-            <AddressInputContainer isDarkMode={isDarkMode}>
+            <AddressInputContainer $isDarkMode={isDarkMode}>
                 <AutocompleteContainer>
                     <AddressAutocomplete
                         onChange={onChangeHandler}
@@ -104,7 +106,7 @@ const WeatherHeader = () => {
                     />
                 </AutocompleteContainer>
                 <SubmitButtonContainer>
-                    <SubmitButton isDarkMode={isDarkMode} type="submit" onClick={submitHandler}>
+                    <SubmitButton $isDarkMode={isDarkMode} type="submit" onClick={submitHandler}>
                         <span><FontAwesomeIcon icon={faMagnifyingGlass} size='2x' /></span>
                     </SubmitButton>
                 </SubmitButtonContainer>

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const cLBg = '#44bc1c';
+
 export const CLButton = styled.button
 `
     display: flex;
@@ -7,7 +9,7 @@ export const CLButton = styled.button
     align-items: center;
     max-width: 250px;
     width: 18vw;
-    background-color: #44bc1c;
+    background-color: ${cLBg};
     border: none;
     border-radius: 40px;
     font-size: 18px;
