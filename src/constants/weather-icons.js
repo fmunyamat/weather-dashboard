@@ -45,3 +45,15 @@ export const STATIC_WEATHER_SUMMARY_ICONS = {
     uv: uvIcon,
     pressure: pressureGaugeIcon
 }
+
+export const HOURLY_FORECAST_ICON_STYLES = {
+    '01d': 1.7, '01n': 1.7,
+    '02d': 1.2, '02n': 1.3,
+    '03d': 1.3, '03n': 1.3,
+    '04d': 1.3, '04n': 1.3,
+    '09d': 1.4, '09n': 1.4,
+    '10d': 1.2, '10n': 1.3,
+    '11d': 1.3, '11n': 1.3,
+    '13d': 1.3, '13n': 1.3,
+    '50d': 1.4
+};

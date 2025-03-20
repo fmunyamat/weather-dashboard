@@ -1,7 +1,8 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useMemo } from 'react';
 import { WeatherDataContext } from '../../../contexts/weather-data.context';
 import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context';
 import { convertUTCToLocalTime } from '../../../utils/formatting/time-format.utils';
+import { HOURLY_FORECAST_ICON_STYLES } from '../../../constants/weather-icons';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import WeatherIcon from '../../global/weather-icon/weather-icon.component';
@@ -19,25 +20,17 @@ import {
     DegreeArrow
 } from './hourly-forecast.styles';
 
-const ICON_SIZES = {
-    '01d': 1.7, '01n': 1.7,
-    '02d': 1.2, '02n': 1.3,
-    '03d': 1.3, '03n': 1.3,
-    '04d': 1.3, '04n': 1.3,
-    '09d': 1.4, '09n': 1.4,
-    '10d': 1.2, '10n': 1.3,
-    '11d': 1.3, '11n': 1.3,
-    '13d': 1.3, '13n': 1.3,
-    '50d': 1.4
-};
-
 const HourlyForecast = () => {
     const { currentWeather, hourlyWeather, fullWeather } = useContext(WeatherDataContext);
     const { isDarkMode } = useContext(DashboardThemeContext);
 
-    const limitHourlyForecast = Array.isArray(hourlyWeather) && hourlyWeather.slice(0,30);
+    // Memoized to prevent unnecessary recalculations
+    const limitHourlyForecast = useMemo(() => 
+        Array.isArray(hourlyWeather) ? hourlyWeather.slice(0, 30) : [], 
+        [hourlyWeather]
+    );
     
-    const hourlyTheme = (hourlyTime) => {
+    const hourlyContainerTheme = (hourlyTime) => {
         // Convert timestamps to Date objects
         const hourRef = new Date(hourlyTime * 1000);
         const sunrise = new Date(currentWeather.sunrise * 1000);
@@ -80,12 +73,12 @@ const HourlyForecast = () => {
                 {limitHourlyForecast && (
                     <HoScrollingContainer ref={scrollContainerRef} objectToMap={limitHourlyForecast}>
                         {(hourData) => (
-                            <HourlyDataGroup style={{background: `linear-gradient(to bottom, ${hourlyTheme(hourData.dt)})`}}>
+                            <HourlyDataGroup style={{background: `linear-gradient(to bottom, ${hourlyContainerTheme(hourData.dt)})`}}>
                                 <DateTime>{formatDate(hourData.dt, 'month')} {formatDate(hourData.dt, 'day')}</DateTime>
                                 <DateTime>{formatDate(hourData.dt, 'time')}</DateTime>
                                 <HourlyInfo>
                                     <WeatherIcon
-                                        stylesObject={{ transform: `scale(${ICON_SIZES[hourData.weather[0].icon]})` }}
+                                        stylesObject={{ transform: `scale(${HOURLY_FORECAST_ICON_STYLES[hourData.weather[0].icon]})` }}
                                         iconCode={hourData.weather[0].icon}
                                     />
                                     <Temp>{`${Math.round(hourData.temp)}°F`}</Temp>

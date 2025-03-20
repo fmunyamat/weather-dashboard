@@ -24,7 +24,7 @@ export const HourlyForecastContainer = styled.div
 
 export const ForecastTitle = styled.span
 `
-    margin-top: 20px;
+    margin-top: 30px;
     font-size: 2rem;
     font-weight: 700;
     color: ${themeSelect(themeColors.darkText, themeColors.lightText)};

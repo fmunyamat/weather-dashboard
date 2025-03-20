@@ -33,10 +33,12 @@ const WeatherHeader = () => {
 
     const onChangeHandler = (e) => {
 
-        const addressInput = e.properties.address_line1 ? e.properties.address_line1 : e.properties.county;
-        const addressCityInput = e.properties.city;
+        const addressInput = e.properties.formatted;
+        const addressCityInput = e.properties.city ? e.properties.city : e.properties.county;
         setAddressFull(addressInput);
         setAddressCity(addressCityInput);
+        console.log(e);
+        
     }
 
     const  fetchCoordinates = async () => {
