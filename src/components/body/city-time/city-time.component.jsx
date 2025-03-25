@@ -14,24 +14,22 @@ const CityTime = () => {
     const [currentTime, setCurrentTime] = useState('0:00 AM');
     const [currentDate, setCurrentDate] = useState('---');
 
-  useEffect(() => {
-    if (fullWeather && fullWeather.current) {
-      const utcUnixTimestamp = fullWeather.current.dt;
-      const localTimezoneOffset = fullWeather.timezone_offset;
+    useEffect(() => {
+        if (fullWeather?.current) {
+            const { dt } = fullWeather.current;
+            const { timezone_offset } = fullWeather;
 
-      setCurrentTime(convertUTCToLocalTime(utcUnixTimestamp + localTimezoneOffset, 'time'));
-      setCurrentDate(convertUTCToLocalTime(utcUnixTimestamp, 'date'));
-    }
-  }, [fullWeather]);
+            setCurrentTime(convertUTCToLocalTime(dt + timezone_offset, 'time'));
+            setCurrentDate(convertUTCToLocalTime(dt, 'date'));
+        }
+    }, [fullWeather]);
   
     return (
-        <>
-            <CityTimeContainer $isDarkMode={isDarkMode}>
-                <City $isDarkMode={isDarkMode}>{displayCityText}</City>
-                <CurrentTime $isDarkMode={isDarkMode}>{currentTime}</CurrentTime>
-                <CurrentDate $isDarkMode={isDarkMode}>{currentDate}</CurrentDate>
-            </CityTimeContainer>
-        </>
+        <CityTimeContainer $isDarkMode={isDarkMode}>
+            <City $isDarkMode={isDarkMode}>{displayCityText}</City>
+            <CurrentTime $isDarkMode={isDarkMode}>{currentTime}</CurrentTime>
+            <CurrentDate $isDarkMode={isDarkMode}>{currentDate}</CurrentDate>
+        </CityTimeContainer>
     );
 };
 

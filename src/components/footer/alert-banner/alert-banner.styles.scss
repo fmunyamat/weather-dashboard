@@ -1,0 +1,39 @@
+.alert-banner {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 83rem;
+    margin-top: 30px;
+    background-color: yellow;
+    border-radius: 15px;
+    box-shadow: 9px 9px 5px rgba(0, 0, 0, 0.3);
+    color: black;
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.alert-track {
+    width: 100%;
+    overflow: hidden;
+}
+
+.alert-content {
+    display: inline-flex;
+    animation: scrollAlerts 20s linear infinite;
+    white-space: nowrap;
+}
+
+.alert-item {
+    padding: 0 50px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+@keyframes scrollAlerts {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}

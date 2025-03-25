@@ -39,7 +39,7 @@ export const AddressInputContainer = styled.div
         border-radius: 40px 0 0px 40px;
         border: ${themeSelect("none", "1px solid black;")};
         ${themeSelect("", "border-right: none" )};
-        font-size: 1.4rem;
+        font-size: 1.1rem;
         text-indent: 20px;
         color: ${(props) => (props.$isDarkMode && "white")};
 
