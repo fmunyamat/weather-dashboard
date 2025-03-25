@@ -18,7 +18,7 @@ import {
     SubmitButtonContainer } from "./weather-header.styles";
 
 const WeatherHeader = () => {
-    const { fetchWeatherForecast } = useContext(WeatherDataContext);
+    const { fullWeather, fetchWeatherForecast } = useContext(WeatherDataContext);
     const { isDarkMode, setIsDarkMode } = useContext(DashboardThemeContext);
     const { 
         coordinates,
@@ -37,7 +37,7 @@ const WeatherHeader = () => {
         const addressCityInput = e.properties.city ? e.properties.city : e.properties.county;
         setAddressFull(addressInput);
         setAddressCity(addressCityInput);
-        console.log(e);
+        // console.log(e);
         
     }
 
@@ -81,7 +81,7 @@ const WeatherHeader = () => {
     // console.log(test);
     // console.log(addressFull);
     // console.log(coordinates);
-    // console.log(fullWeather);
+    console.log(fullWeather);
     // console.log(currentWeather);
     // console.log(hourlyWeather);
     // console.log(dailyWeather);
