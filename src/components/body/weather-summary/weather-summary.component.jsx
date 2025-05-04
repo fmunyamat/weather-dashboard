@@ -1,9 +1,14 @@
 import { useContext, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectFullWeather, selectCurrentWeather, selectIsLoading } from '../../../store/weather/weather.selector';
+
+import LoadingSpinner from '../../loading-spinner/loading-spinner.component';
 import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context';
-import { WeatherDataContext } from '../../../contexts/weather-data.context';
 import { convertUTCToLocalTime } from '../../../utils/formatting/time-format.utils';
 import { STATIC_WEATHER_SUMMARY_ICONS } from '../../../constants/weather-icons';
 import WeatherIcon from '../../global/weather-icon/weather-icon.component';
+
 import {
     WeatherSummaryContainer,
     Summary1,
@@ -23,7 +28,10 @@ import {
 
 const WeatherSummary = () => {
     const { isDarkMode } = useContext(DashboardThemeContext);
-    const { fullWeather, currentWeather } = useContext(WeatherDataContext);
+    const fullWeather = useSelector(selectFullWeather);
+    const currentWeather = useSelector(selectCurrentWeather);
+    const isLoading = useSelector(selectIsLoading);
+
     const [currentTemp, setCurrentTemp] = useState('--');
     const [feelsLikeTemp, setFeelsLikeTemp] = useState('--');
     const [sunriseTime, setSunriseTime] = useState('0:00 AM');
@@ -33,8 +41,9 @@ const WeatherSummary = () => {
     const [pressure, setPressure] = useState('--');
     const [uv, setUv] = useState('--');
     const [weatherDesc, setWeatherDesc] = useState('--')
+
     const getCurrentWeather = (currentWeatherType) =>  currentWeather && Math.ceil(currentWeatherType);
-    const weatherIconCode = fullWeather.current && currentWeather.weather[0].icon;
+    const weatherIconCode = currentWeather && currentWeather.weather[0].icon;
 
     const weatherSummaryIconStyles = {
         '01d': {
@@ -114,7 +123,7 @@ const WeatherSummary = () => {
     };
 
     useEffect(() => {
-        if (fullWeather && fullWeather.current) {
+        if (fullWeather && currentWeather) {
             setCurrentTemp(getCurrentWeather(currentWeather.temp));
             setFeelsLikeTemp(getCurrentWeather(currentWeather.feels_like));
             setSunriseTime(convertUTCToLocalTime(currentWeather.sunrise + fullWeather.timezone_offset, 'time'));
@@ -130,58 +139,64 @@ const WeatherSummary = () => {
     return (
         <>
             <WeatherSummaryContainer $isDarkMode={isDarkMode}>
-                <Summary1>
-                    <TempContainer>
-                        <Temp $isDarkMode={isDarkMode}>{`${currentTemp}°F`}</Temp>
-                        <FeelsLikeTemp $isDarkMode={isDarkMode}>Feels Like <span>{`${feelsLikeTemp}°F`}</span></FeelsLikeTemp>
-                    </TempContainer>
-                    <SunriseSunsetContainer>
-                        <div className="sunrise">
-                            <Icon $isDarkMode={isDarkMode}>
-                                <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunrise} alt="" /></span>
-                            </Icon>
-                            <Info $isDarkMode={isDarkMode}>
-                                <span>Sunrise</span>
-                                <span className='sunrise-time'>{sunriseTime}</span>
-                            </Info>
-                        </div>
-                        <div className="sunset">
-                            <Icon $isDarkMode={isDarkMode}>
-                                <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunset} alt="" /></span>
-                            </Icon>
-                            <Info $isDarkMode={isDarkMode}>
-                                <span>Sunset</span>
-                                <span className='sunset-time'>{sunsetTime}</span>
-                            </Info>
-                        </div>
-                    </SunriseSunsetContainer>
-                </Summary1>
-                <Summary2>
-                    <WeatherIcon stylesObject={weatherSummaryIconStyles[weatherIconCode]} iconCode={weatherIconCode}/>
-                    <WeatherDescription $isDarkMode={isDarkMode}>{weatherDesc}</WeatherDescription>
-                </Summary2>
-                <Summary3>
-                    <div className="humidity">
-                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.humidity} alt="" /></GridIcon>
-                        <GridNumber $isDarkMode={isDarkMode}>{`${humidity}%`}</GridNumber>
-                        <GridCategory $isDarkMode={isDarkMode}>Humidity</GridCategory>
-                    </div>
-                    <div className="wind-speed">
-                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.wind} alt="" /></GridIcon>
-                        <GridNumber $isDarkMode={isDarkMode}>{`${Math.round(windSpeed)}mph`}</GridNumber>
-                        <GridCategory $isDarkMode={isDarkMode}>Wind Speed</GridCategory>
-                    </div>
-                    <div className="pressure">
-                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.pressure} alt="" /></GridIcon>
-                        <GridNumber $isDarkMode={isDarkMode}>{`${pressure}hpa`}</GridNumber>
-                        <GridCategory $isDarkMode={isDarkMode}>Pressure</GridCategory>
-                    </div>
-                    <div className="uv">
-                        <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.uv} alt="" /></GridIcon>
-                        <GridNumber $isDarkMode={isDarkMode}>{uv}</GridNumber>
-                        <GridCategory $isDarkMode={isDarkMode}>UV</GridCategory>
-                    </div>
-                </Summary3>
+                {
+                    isLoading ?
+                    <LoadingSpinner /> :
+                    <>
+                        <Summary1>
+                            <TempContainer>
+                                <Temp $isDarkMode={isDarkMode}>{`${currentTemp}°F`}</Temp>
+                                <FeelsLikeTemp $isDarkMode={isDarkMode}>Feels Like <span>{`${feelsLikeTemp}°F`}</span></FeelsLikeTemp>
+                            </TempContainer>
+                            <SunriseSunsetContainer>
+                                <div className="sunrise">
+                                    <Icon $isDarkMode={isDarkMode}>
+                                        <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunrise} alt="" /></span>
+                                    </Icon>
+                                    <Info $isDarkMode={isDarkMode}>
+                                        <span>Sunrise</span>
+                                        <span className='sunrise-time'>{sunriseTime}</span>
+                                    </Info>
+                                </div>
+                                <div className="sunset">
+                                    <Icon $isDarkMode={isDarkMode}>
+                                        <span><img src={STATIC_WEATHER_SUMMARY_ICONS.sunset} alt="" /></span>
+                                    </Icon>
+                                    <Info $isDarkMode={isDarkMode}>
+                                        <span>Sunset</span>
+                                        <span className='sunset-time'>{sunsetTime}</span>
+                                    </Info>
+                                </div>
+                            </SunriseSunsetContainer>
+                        </Summary1>
+                        <Summary2>
+                            <WeatherIcon stylesObject={weatherSummaryIconStyles[weatherIconCode]} iconCode={weatherIconCode}/>
+                            <WeatherDescription $isDarkMode={isDarkMode}>{weatherDesc}</WeatherDescription>
+                        </Summary2>
+                        <Summary3>
+                            <div className="humidity">
+                                <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.humidity} alt="" /></GridIcon>
+                                <GridNumber $isDarkMode={isDarkMode}>{`${humidity}%`}</GridNumber>
+                                <GridCategory $isDarkMode={isDarkMode}>Humidity</GridCategory>
+                            </div>
+                            <div className="wind-speed">
+                                <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.wind} alt="" /></GridIcon>
+                                <GridNumber $isDarkMode={isDarkMode}>{`${Math.round(windSpeed)}mph`}</GridNumber>
+                                <GridCategory $isDarkMode={isDarkMode}>Wind Speed</GridCategory>
+                            </div>
+                            <div className="pressure">
+                                <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.pressure} alt="" /></GridIcon>
+                                <GridNumber $isDarkMode={isDarkMode}>{`${pressure}hpa`}</GridNumber>
+                                <GridCategory $isDarkMode={isDarkMode}>Pressure</GridCategory>
+                            </div>
+                            <div className="uv">
+                                <GridIcon $isDarkMode={isDarkMode}><img src={STATIC_WEATHER_SUMMARY_ICONS.uv} alt="" /></GridIcon>
+                                <GridNumber $isDarkMode={isDarkMode}>{uv}</GridNumber>
+                                <GridCategory $isDarkMode={isDarkMode}>UV</GridCategory>
+                            </div>
+                        </Summary3>
+                    </>
+                }
             </WeatherSummaryContainer>
         </>
     );
