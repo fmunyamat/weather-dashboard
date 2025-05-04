@@ -1,11 +1,16 @@
 import React, { useContext, useRef, useMemo } from 'react';
-import { WeatherDataContext } from '../../../contexts/weather-data.context';
+import { useSelector } from 'react-redux';
+
+import { selectFullWeather, selectCurrentWeather, selectHourlyWeather, selectIsLoading } from '../../../store/weather/weather.selector';
+
+import LoadingSpinner from '../../loading-spinner/loading-spinner.component';
 import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context';
 import { convertUTCToLocalTime } from '../../../utils/formatting/time-format.utils';
 import { HOURLY_FORECAST_ICON_STYLES } from '../../../constants/weather-icons';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import WeatherIcon from '../../global/weather-icon/weather-icon.component';
+
 import { 
     HourlyForecastContainer,
     ForecastTitle,
@@ -21,7 +26,10 @@ import {
 } from './hourly-forecast.styles';
 
 const HourlyForecast = () => {
-    const { currentWeather, hourlyWeather, fullWeather } = useContext(WeatherDataContext);
+    const fullWeather = useSelector(selectFullWeather);
+    const hourlyWeather = useSelector(selectHourlyWeather);
+    const currentWeather = useSelector(selectCurrentWeather);
+    const isLoading = useSelector(selectIsLoading);
     const { isDarkMode } = useContext(DashboardThemeContext);
 
     // Memoized to prevent unnecessary recalculations
@@ -65,34 +73,40 @@ const HourlyForecast = () => {
 
     return (
         <HourlyForecastContainer $isDarkMode={isDarkMode}>
-            <ForecastTitle $isDarkMode={isDarkMode}>Hourly Forecast</ForecastTitle>
-            <HourlyWeatherButtonGroup>
-                <ArrowWrapper $isDarkMode={isDarkMode} onClick={() => scrollByAmount('left')}>
-                    <ArrowBackIosNewIcon />
-                </ArrowWrapper>
-                {limitHourlyForecast && (
-                    <HoScrollingContainer ref={scrollContainerRef} objectToMap={limitHourlyForecast}>
-                        {(hourData) => (
-                            <HourlyDataGroup style={{background: `linear-gradient(to bottom, ${hourlyContainerTheme(hourData.dt)})`}}>
-                                <DateTime>{formatDate(hourData.dt, 'month')} {formatDate(hourData.dt, 'day')}</DateTime>
-                                <DateTime>{formatDate(hourData.dt, 'time')}</DateTime>
-                                <HourlyInfo>
-                                    <WeatherIcon
-                                        stylesObject={{ transform: `scale(${HOURLY_FORECAST_ICON_STYLES[hourData.weather[0].icon]})` }}
-                                        iconCode={hourData.weather[0].icon}
-                                    />
-                                    <Temp>{`${Math.round(hourData.temp)}°F`}</Temp>
-                                    <DegreeArrow style={{ transform: `scale(0.6) rotate(${hourData.wind_deg}deg)` }} />
-                                    <WindSpeed>{`${Math.round(hourData.wind_speed)}mph`}</WindSpeed>
-                                </HourlyInfo>
-                            </HourlyDataGroup>
+            {
+                isLoading ?
+                <LoadingSpinner /> :
+                <>
+                    <ForecastTitle $isDarkMode={isDarkMode}>Hourly Forecast</ForecastTitle>
+                    <HourlyWeatherButtonGroup>
+                        <ArrowWrapper $isDarkMode={isDarkMode} onClick={() => scrollByAmount('left')}>
+                            <ArrowBackIosNewIcon />
+                        </ArrowWrapper>
+                        {limitHourlyForecast && (
+                            <HoScrollingContainer ref={scrollContainerRef} objectToMap={limitHourlyForecast}>
+                                {(hourData) => (
+                                    <HourlyDataGroup style={{background: `linear-gradient(to bottom, ${hourlyContainerTheme(hourData.dt)})`}}>
+                                        <DateTime>{formatDate(hourData.dt, 'month')} {formatDate(hourData.dt, 'day')}</DateTime>
+                                        <DateTime>{formatDate(hourData.dt, 'time')}</DateTime>
+                                        <HourlyInfo>
+                                            <WeatherIcon
+                                                stylesObject={{ transform: `scale(${HOURLY_FORECAST_ICON_STYLES[hourData.weather[0].icon]})` }}
+                                                iconCode={hourData.weather[0].icon}
+                                            />
+                                            <Temp>{`${Math.round(hourData.temp)}°F`}</Temp>
+                                            <DegreeArrow style={{ transform: `scale(0.6) rotate(${hourData.wind_deg}deg)` }} />
+                                            <WindSpeed>{`${Math.round(hourData.wind_speed)}mph`}</WindSpeed>
+                                        </HourlyInfo>
+                                    </HourlyDataGroup>
+                                )}
+                            </HoScrollingContainer>
                         )}
-                    </HoScrollingContainer>
-                )}
-                <ArrowWrapper $isDarkMode={isDarkMode} onClick={() => scrollByAmount('right')}>
-                    <ArrowForwardIosIcon />
-                </ArrowWrapper>
-            </HourlyWeatherButtonGroup>
+                        <ArrowWrapper $isDarkMode={isDarkMode} onClick={() => scrollByAmount('right')}>
+                            <ArrowForwardIosIcon />
+                        </ArrowWrapper>
+                    </HourlyWeatherButtonGroup>
+                </>
+            }
         </HourlyForecastContainer>
     );
 };

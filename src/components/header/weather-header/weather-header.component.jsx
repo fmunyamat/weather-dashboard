@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { selectFullWeather } from "../../../store/weather/weather.selector";
+import { fetchWeatherForecast } from "../../../store/weather/weather.action";
 import { DashboardThemeContext } from "../../../contexts/dashboard-theme.context";
-import { WeatherDataContext } from "../../../contexts/weather-data.context";
 import { LocationContext } from "../../../contexts/location.context";
 import { getCoordinates } from "../../../utils/apis/geocode-api.utils";
+
 import AddressAutocomplete from "../../global/address-autocomplete/address-autocomplete.component";
 import { MaterialUISwitch } from "../material-ui-switch/material-ui-switch.component";
 import CurrentLocationButton from "../current-location-button/current-location-button.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 import {
     WeatherHeaderContainer,
     SwitchContainer,
@@ -18,7 +23,8 @@ import {
     SubmitButtonContainer } from "./weather-header.styles";
 
 const WeatherHeader = () => {
-    const { fullWeather, fetchWeatherForecast } = useContext(WeatherDataContext);
+    const dispatch = useDispatch();
+    const fullWeather = useSelector(selectFullWeather);
     const { isDarkMode, setIsDarkMode } = useContext(DashboardThemeContext);
     const { 
         coordinates,
@@ -74,7 +80,7 @@ const WeatherHeader = () => {
 
     useEffect(() => {
         if (coordinates.lat && coordinates.long) {
-            fetchWeatherForecast(coordinates.lat, coordinates.long);
+            dispatch(fetchWeatherForecast(coordinates.lat, coordinates.long));
         }
     }, [coordinates]);
 

@@ -1,9 +1,14 @@
 import React, { useContext } from 'react';
-import { WeatherDataContext } from '../../../contexts/weather-data.context';
+import { useSelector } from 'react-redux';
+
+import { selectFullWeather, selectDailyWeather, selectIsLoading } from '../../../store/weather/weather.selector';
+
+import LoadingSpinner from '../../loading-spinner/loading-spinner.component';
 import { DashboardThemeContext } from '../../../contexts/dashboard-theme.context';
 import { convertUTCToLocalTime } from '../../../utils/formatting/time-format.utils';
 import WeatherIcon from '../../global/weather-icon/weather-icon.component';
 import Tooltip from '../../global/tooltip/tooltip.component';
+
 import { 
     DailyForecastContainer,
     ForecastTitle,
@@ -15,17 +20,17 @@ import {
 } from './daily-forecast.styles';
 
 const DailyForecast = () => {
-    const { dailyWeather, fullWeather } = useContext(WeatherDataContext);
+    const fullWeather = useSelector(selectFullWeather);
+    const dailyWeather = useSelector(selectDailyWeather);
+    const isLoading = useSelector(selectIsLoading);
     const { isDarkMode } = useContext(DashboardThemeContext);
 
     const weatherDailyIconStyles = {
         '01d': {
-            transform: 'scale(1.5)',
-            // paddingBottom: '10px'
+            transform: 'scale(1.5)'
         },
         '02d': {
-            transform: 'scale(1.1)',
-            // paddingBottom: '8px'
+            transform: 'scale(1.1)'
         },
         '03d': {
             transform: 'scale(1.2)'
@@ -39,12 +44,10 @@ const DailyForecast = () => {
             marginBottom: '5px'
         },
         '10d': {
-            transform: 'scale(1.1)',
-            // paddingBottom: '17px'
+            transform: 'scale(1.1)'
         },
         '11d': {
-            transform: 'scale(1.2)',
-            // paddingBottom: '18px'
+            transform: 'scale(1.2)'
         },
         '13d': {
             transform: 'scale(1.2)',
@@ -75,39 +78,44 @@ const DailyForecast = () => {
     return (
         <>
             <DailyForecastContainer $isDarkMode={isDarkMode}>
-                <ForecastTitle $isDarkMode={isDarkMode}>8 Day Forecast</ForecastTitle>
-                <ForecastDisplay>
-                    {Array.isArray(dailyWeather) && dailyWeather.map((weatherData, index) => {
-                        return ( 
-                            <React.Fragment key={index}>
-                                <Tooltip
-                                    tooltipData={tooltipForecastData(
-                                            weatherData.sunrise, 
-                                            weatherData.sunset,
-                                            fullWeather.timezone_offset,
-                                            weatherData.summary
-                                        )}
-                                >
-                                    <ForecastGroupContainer>
-                                        <ForecastDateInfoContainer $isDarkMode={isDarkMode}>
-                                            <ForecastDate>
-                                                <span className='daily-forecast-month'>{convertUTCToLocalTime(weatherData.dt, 'month')}</span>
-                                                <span className='daily-forecast-day'>{convertUTCToLocalTime(weatherData.dt, 'day')}</span>
-                                            </ForecastDate>
-                                            <div className="forecast-info">
-                                                <WeatherIcon stylesObject={weatherDailyIconStyles[weatherData.weather[0].icon]} iconCode={weatherData.weather[0].icon}/>
-                                                <ForecastTemp>
-                                                    <span className="temp-max">{`${Math.round(weatherData.temp.max)}°`}</span>
-                                                    <span className="temp-min">{` | ${Math.round(weatherData.temp.min)}°`}</span>
-                                                </ForecastTemp>
-                                            </div> 
-                                        </ForecastDateInfoContainer>
-                                    </ForecastGroupContainer>
-                                </Tooltip>
-                            </React.Fragment>
-                        )
-                    })}
-                </ForecastDisplay>
+                {
+                    isLoading ?
+                    <LoadingSpinner /> :
+                    <>
+                        <ForecastTitle $isDarkMode={isDarkMode}>8 Day Forecast</ForecastTitle>
+                        <ForecastDisplay>
+                            {Array.isArray(dailyWeather) && dailyWeather.map((weatherData, index) => {
+                                return ( 
+                                    <React.Fragment key={index}>
+                                        <Tooltip
+                                            tooltipData={tooltipForecastData(
+                                                weatherData.sunrise, 
+                                                weatherData.sunset,
+                                                fullWeather.timezone_offset,
+                                                weatherData.summary
+                                            )}>
+                                            <ForecastGroupContainer>
+                                                <ForecastDateInfoContainer $isDarkMode={isDarkMode}>
+                                                    <ForecastDate>
+                                                        <span className='daily-forecast-month'>{convertUTCToLocalTime(weatherData.dt, 'month')}</span>
+                                                        <span className='daily-forecast-day'>{convertUTCToLocalTime(weatherData.dt, 'day')}</span>
+                                                    </ForecastDate>
+                                                    <div className="forecast-info">
+                                                        <WeatherIcon stylesObject={weatherDailyIconStyles[weatherData.weather[0].icon]} iconCode={weatherData.weather[0].icon}/>
+                                                        <ForecastTemp>
+                                                            <span className="temp-max">{`${Math.round(weatherData.temp.max)}°`}</span>
+                                                            <span className="temp-min">{` | ${Math.round(weatherData.temp.min)}°`}</span>
+                                                        </ForecastTemp>
+                                                    </div> 
+                                                </ForecastDateInfoContainer>
+                                            </ForecastGroupContainer>
+                                        </Tooltip>
+                                    </React.Fragment>
+                                )
+                            })}
+                        </ForecastDisplay>
+                    </>
+                }
             </DailyForecastContainer>
         </>
     );

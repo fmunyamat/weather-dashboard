@@ -1,9 +1,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { WeatherDataProvider } from './contexts/weather-data.context';
+import { Provider } from 'react-redux';
 import { DashboardThemeProvider } from './contexts/dashboard-theme.context';
 import { LocationProvider } from './contexts/location.context';
+import { store } from './store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -13,15 +14,15 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <LocationProvider>
-        <DashboardThemeProvider>
-          <WeatherDataProvider>
-            <App />
-          </WeatherDataProvider>
-        </DashboardThemeProvider>
-      </LocationProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+        <BrowserRouter>
+            <LocationProvider>
+                <DashboardThemeProvider>
+                    <App />
+                </DashboardThemeProvider>
+            </LocationProvider>
+        </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
